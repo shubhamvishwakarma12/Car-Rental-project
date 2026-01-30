@@ -45,9 +45,7 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
-    console.log("Email: ",user.email);
-    console.log("password",password,"     ", user.password);
-    
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.json({
@@ -55,8 +53,7 @@ export const loginUser = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-    console.log("Match: ",isMatch);
-    
+
     const token = await generateToken(user._id.toString());
     res.json({ success: true, token: token });
   } catch (error) {
@@ -67,12 +64,12 @@ export const loginUser = async (req, res) => {
 
 //get user data using token
 
-export const getUserdata = async (req, res)=>{
+export const getUserdata = async (req, res) => {
   try {
-const {user} = req;
-    res.json({ success: true, user });    
+    const { user } = req;
+    res.json({ success: true, user });
   } catch (error) {
-      console.error(error.message);
+    console.error(error.message);
     res.json({ success: false, message: error.message });
   }
-}
+};

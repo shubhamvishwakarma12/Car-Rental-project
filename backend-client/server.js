@@ -3,6 +3,7 @@ import  "dotenv/config";
 import cors from "cors";
 import { ConnectDB } from "./configs/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import ownerRoutes from "./routes/ownerRoutes.js";
 
 const app = express();
 let Port = 3000;
@@ -19,7 +20,8 @@ app.get("/",(req, res)=>{
     res.status(200).send("url is running");
 });
 
-app.use("/api/user", userRoutes)
+app.use("/api/user", userRoutes);
+app.use("/api/owner", ownerRoutes)
 
 app.listen(Port,()=>{
     console.log(`App is running on this url http://localhoast:${Port}`);
