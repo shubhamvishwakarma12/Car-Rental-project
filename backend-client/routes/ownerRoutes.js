@@ -9,5 +9,6 @@ const ownerRoutes = express.Router();
 
 ownerRoutes.post("/change-role", protect, ChangeRoleOwner);
 ownerRoutes.post("/add-car", upload.single("image"), protect, addCar);
+// ownerRoutes.post("/")
 
 export default ownerRoutes;

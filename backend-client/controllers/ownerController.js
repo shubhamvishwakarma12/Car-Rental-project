@@ -49,3 +49,43 @@ export const addCar = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const getOwnerCars =async(req, res)=>{
+  try {
+    const { _id } = req.user
+    const car = await Car.find({owner: _id})
+
+    res.json({
+      success: true,
+       car
+    })
+    
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+}
+
+export const toggleCarAvalibility = async(req, res)=>{
+  try {
+     const { _id } = req.user;
+     const {carId} = req.body;
+    const car = await Car.findById(carId);
+
+    if(car.owner.toString() !== car._id.toString()){
+      res.json({ success: false, message: "UnAutherized" });
+    }
+
+    car.isAvaliable= !car.isAvaliable;
+    await car.save();
+
+    res.json({
+      success: true,
+       message:"Avalibility Toggled",
+    })
+    
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+}
