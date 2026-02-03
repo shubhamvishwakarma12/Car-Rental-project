@@ -15,7 +15,6 @@ export const ChangeRoleOwner = async (req, res) => {
   }
 };
 
-//list add Car
 export const addCar = async (req, res) => {
   try {
     const { _id } = req.user;
@@ -72,8 +71,8 @@ export const toggleCarAvalibility = async(req, res)=>{
      const {carId} = req.body;
     const car = await Car.findById(carId);
 
-    if(car.owner.toString() !== car._id.toString()){
-      res.json({ success: false, message: "UnAutherized" });
+    if(car.owner.toString() !== _id.toString()){
+      res.json({ success: false, message: "Unauthorized" });
     }
 
     car.isAvaliable= !car.isAvaliable;
@@ -88,4 +87,42 @@ export const toggleCarAvalibility = async(req, res)=>{
     console.error(error.message);
     res.json({ success: false, message: error.message });
   }
+}
+
+export const deleteCar = async(req, res)=>{
+  try {
+     const { _id } = req.user;
+     const {carId} = req.body;
+    const car = await Car.findById(carId);
+
+    if(car.owner.toString() !== _id.toString()){
+      res.json({ success: false, message: "Unauthorized" });
+    }
+
+    car.owner = null;
+    car.isAvaliable = false;
+    await car.save();
+
+    res.json({
+      success: true,
+       message:"Car Removed",
+    })
+    
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+}
+
+export const dashboardData = async (req, res)=>{
+try {
+  const {_id, role} = req.user;
+  if(role !== 'owner'){
+    res.json({ success: false, message: "Unauthorized" });
+  }
+  const cars = await Car.find({owner: _id})
+} catch (error) {
+  console.error(error.message);
+    res.json({ success: false, message: error.message });
+}
 }
