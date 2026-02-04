@@ -4,6 +4,7 @@ import cors from "cors";
 import { ConnectDB } from "./configs/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import ownerRoutes from "./routes/ownerRoutes.js";
+import BookingRoutes from "./routes/bookingRoutes.js";
 
 const app = express();
 let Port = 3000;
@@ -22,6 +23,7 @@ app.get("/",(req, res)=>{
 
 app.use("/api/user", userRoutes);
 app.use("/api/owner", ownerRoutes)
+app.use("/api/booking", BookingRoutes)
 
 app.listen(Port,()=>{
     console.log(`App is running on this url http://localhoast:${Port}`);
