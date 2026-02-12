@@ -13,6 +13,7 @@ import ManageCards from "./pages/Owner/ManageCards";
 import ManageBookings from "./pages/Owner/ManageBookings";
 import Dashboard from "./pages/Owner/Dashboard";
 import Login from "./components/Login";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+    <Toaster/>
 
     {showLogin && <Login setShowLogin={setShowLogin}/>}
     

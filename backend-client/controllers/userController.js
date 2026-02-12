@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import Car from "../models/Car.js"
 
 // Generate JWT Token
 const generateToken = async (userId) => {
@@ -73,3 +74,12 @@ export const getUserdata = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const getCarsdata = async (req, res) =>{
+  try {
+    const cars = await Car.find({isAvaliable : true})
+  } catch (error) {
+     console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+}
