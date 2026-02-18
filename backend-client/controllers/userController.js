@@ -3,7 +3,6 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import Car from "../models/Car.js"
 
-// Generate JWT Token
 const generateToken = async (userId) => {
   const payload = userId;
   return jwt.sign(payload, process.env.JWT_SECRET);
@@ -46,7 +45,6 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.json({
@@ -54,7 +52,6 @@ export const loginUser = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-
     const token = await generateToken(user._id.toString());
     res.json({ success: true, token: token });
   } catch (error) {
@@ -62,8 +59,6 @@ export const loginUser = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-
-//get user data using token
 
 export const getUserdata = async (req, res) => {
   try {
@@ -74,10 +69,10 @@ export const getUserdata = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-
 export const getCarsdata = async (req, res) =>{
   try {
-    const cars = await Car.find({isAvaliable : true})
+    const cars = await Car.find({isAvaliable : true});
+    res.json({success: true, cars})
   } catch (error) {
      console.error(error.message);
     res.json({ success: false, message: error.message });

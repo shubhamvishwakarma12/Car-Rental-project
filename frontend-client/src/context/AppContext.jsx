@@ -24,9 +24,11 @@ export const AppProvider = ({ children }) => {
   const fetchUsers = async () => {
     try {
       const { data } = await axios.get("/api/user/data");
+         console.log("hudtjdhd",data);
+
       if (data.success) {
         setUser(data.users);
-        setIsOwner(data.users.role === "owner");
+        setIsOwner(data.users?.role === "owner");
       } else {
         navigate("/");
       }
@@ -74,3 +76,4 @@ export const AppProvider = ({ children }) => {
 export const UseAppContext = () => {
   return useContext(AppContext);
 };
+

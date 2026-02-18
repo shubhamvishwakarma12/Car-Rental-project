@@ -9,10 +9,10 @@ export const ChangeRoleOwner = async (req, res) => {
   try {
     const { _id } = req.user;
     await User.findByIdAndUpdate(_id, { role: "owner" });
-    res.json({ sucess: true, message: "Now you can add Cards" });
+    res.json({ success: true, message: "Now you can add Cards" });
   } catch (error) {
     console.error(error.message);
-    res.json({ sucess: false, message: "you cannot add Cards" });
+    res.json({ success: false, message: "you cannot add Cards" });
   }
 };
 
